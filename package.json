@@ -21,15 +21,15 @@
     "@babel/preset-env": "^7.2.0",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.4",
+    "body-parser": "^1.18.3",
     "css-loader": "^2.0.1",
+    "express": "^4.16.4",
+    "nodemon": "^1.18.9",
+    "passport": "^0.4.0",
     "style-loader": "^0.23.1",
     "webpack": "^4.27.1",
     "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.10",
-    "body-parser": "^1.18.3",
-    "express": "^4.16.4",
-    "nodemon": "^1.18.9",
-    "passport": "^0.4.0"
+    "webpack-dev-server": "^3.1.14"
   },
   "dependencies": {
     "@material-ui/core": "^3.7.0",
@@ -37,6 +37,7 @@
     "bcrypt": "^3.0.2",
     "concurrently": "^4.1.0",
     "cookie-parser": "^1.4.3",
+    "passport-jwt": "^4.0.0",
     "pg": "^7.7.1",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
