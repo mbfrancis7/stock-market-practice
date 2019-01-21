@@ -3,11 +3,11 @@ const webpack = require('webpack');
 
 module.exports = {
   mode: 'development',
-  entry: './client/src/app.js',
+  entry: './client/src/index.js',
   output: {
     path: path.resolve(__dirname, 'client/dist/'),
     filename: 'bundle.js',
-    publicPath: '/dist'
+    publicPath: '/dist/'
   },
   module: {
     rules: [
@@ -16,7 +16,8 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         options: {
-            presets: ['@babel/env', '@babel/preset-react']
+            presets: ['@babel/env', '@babel/preset-react'],
+            plugins: ["@babel/plugin-proposal-object-rest-spread"] 
         }
       },
       {
@@ -26,6 +27,7 @@ module.exports = {
       
     ]
   },
+  resolve: { extensions: ["*", ".js", ".jsx"] },
   devServer: {
     contentBase: path.join(__dirname, "client/public/"),
     port: 8000,
