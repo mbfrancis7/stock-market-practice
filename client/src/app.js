@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import {hot} from "react-hot-loader";
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import Login from './login.js';
+import Header from './header.js';
+import AuthPage from './authPage.js';
 import Home from './home.js';
 
 class App extends Component {
@@ -13,8 +14,14 @@ class App extends Component {
   render() {
     return(
       <div className='app'>
+      <Header />
         <BrowserRouter>
-          <Route exact path='/' component={Login}/>
+          <div>
+            <Switch>
+              <Route exact path='/' component={AuthPage}/>
+              <Route exact path='/home' component={Home}/>
+            </Switch>
+          </div>
         </BrowserRouter>
       </div>
     )
@@ -22,3 +29,4 @@ class App extends Component {
 }
 
 export default hot(module)(App);
+// export default App;

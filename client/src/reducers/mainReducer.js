@@ -1,14 +1,23 @@
-import {sayHello} from '../actions.js';
+import {login} from '../actions.js';
 
 const initialState = {
-  user: {},
+  user: {
+    auth: false,
+    name: null
+  },
   stocks: {}
 }
 
 const mainReducer = (state = initialState, action) => {
   switch(action.type) {
-    case(sayHello):
-      return state;
+    case login:
+      return {
+        ...state,
+        user: {
+          auth: true,
+          name: action.payload.name
+        }
+      };
     default:
       return state;
   }

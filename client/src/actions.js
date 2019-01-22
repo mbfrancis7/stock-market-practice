@@ -1,1 +1,1 @@
-export const sayHello = 'sayHello';
+export const login = 'login';

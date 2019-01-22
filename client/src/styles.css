@@ -1,0 +1,65 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.header {
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+  background-color: black;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-template-rows: auto;
+  height: 50px;
+  width: 100%;
+  justify-content: center;
+  opacity: .7;
+}
+
+.body {
+  text-align: center;
+}
+
+.footer {
+  background-color: grey;
+  display: grid;
+  grid-template-columns: auto auto;
+  text-align: center;
+}
+
+.topButton {
+  margin: 15px;
+  color: white;
+}
+
+.bodyContent {
+  background-color: #e60000;
+  height: 100px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.footerButton {
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+}
+
+.authPage {
+  display: flex;
+  align-content: center;
+}
+
+.form {
+  box-shadow: 2px 5px grey;
+  border: solid black 1px;
+  margin: 10% 35%;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+}
