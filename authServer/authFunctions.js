@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const { Pool, Client } = require('pg'); 
 const bcrypt = require('bcrypt');
 
-const { authString } = require('../connection-string.js');
+const { authString } = require('../databaseConnections/connection-strings.js');
 
 const pool = new Pool({connectionString: authString});
 const seed = 10;
@@ -20,8 +20,9 @@ const authFunctions = {
       if(err) throw err;
       db.query(text, values, (err, data) => {
         done()
-        if(err && err.code === '23505') {
-          res.send("User already exists")
+        if(err && err.code == '23505') {
+          console.log('err',err)
+          res.json({message:"User already exists"})
         } else {
           next()
         }
@@ -45,15 +46,16 @@ login: (req, res, next) => {
         .then(result => {
           if(result) {
             let user = {
-            name: userInfo.first_name + ' ' + userInfo.last_name,
-            email: userInfo.email
+            name: userInfo.first_name,
+            // email: userInfo.email,
+            id: userInfo.id
             }
             let token = jwt.sign({user},'secretKey',{ expiresIn: 60 })
             console.log(token)
-            res.cookie('Authorization', token, { maxAge: 60000, httpOnly: true })
-            res.json({auth: true})
+            res.set('Authorization', 'Bearer ' + token)
+            res.json({...user, auth: true, id: userInfo.id})
           } else {
-          res.json({creds: 'Invalid'});
+            res.json({creds: 'Invalid'});
           }
         })
         .catch(err => {

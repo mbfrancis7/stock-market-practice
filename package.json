@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js",
     "build": "webpack --mode production",
-    "client": "webpack-dev-server --mode development --devtool inline-source-map --hot --open",
-    "server": "nodemon server/server.js",
+    "client": "webpack-dev-server --mode development --devtool inline-source-map --open",
+    "contentServer": "nodemon contentServer/contentServer.js",
     "app": "concurrently \"npm run build\" \"npm run server\" \"npm run authServer\"",
     "authServer": "nodemon authServer/authServer.js"
   },

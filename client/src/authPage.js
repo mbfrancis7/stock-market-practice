@@ -1,19 +1,40 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import SignupForm from './signup.js';
+import LoginForm from './login.js';
+import { authorized } from './actions.js';
+
+
+const mapDispatchToProps = dispatch => ({
+  authorized: function(payload) {
+    dispatch({
+      type: authorized,
+      payload
+    })
+  }
+})
+
 
 class AuthPage extends Component {
   constructor(props) {
     super(props)
+    this.state ={
+      login: true,
+      auth: false
+    }
+    this.switchAuth = this.switchAuth.bind(this)
   }
 
-  signup = function(values) {
+  switchAuth = function() {
+    this.setState({login: !this.state.login})
+  }
+
+  signup = (values) => {
     if(values.password !== values.confirmPassword) {
       return window.alert('Passwords do not match')
     } else {
-      console.log(values)
-      let url = 'http://127.0.0.1:3000/api/signup';
-      fetch(url, {
+      fetch('http://127.0.0.1:3000/api/signup', {
         method: 'POST',
         headers: {
           "Content-type": "application/json"
@@ -22,22 +43,46 @@ class AuthPage extends Component {
       })
       .then(res => res.json())
       .then(res => {
+        console.log(res)
         if(res.auth) {
-        console.log('Get Posts')
-      }})
+          this.props.authorized({name: res.name, id: res.id});
+        }
+      })
       .catch(err => console.log(err))
     }
   }
 
-  signin = function(values) {
-    console.log(values)
+  login = values => {
+    fetch('http://127.0.0.1:3000/api/login', {
+      method: 'POST',
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify(values)
+    })
+    .then(res => res.json())
+    .then(res => {
+      console.log(res)
+      if(res.auth) {
+        this.props.authorized({name: res.name, id: res.id})
+      }
+    })
+    .catch(err => {
+      console.log('error', err)
+    })
   }
 
   render() {
-    return(
-        <SignupForm onSubmit={this.signup} className='authPage'/>
-    )
+    if(this.state.login) {
+      return(
+        <LoginForm onSubmit={this.login} switchAuth={this.switchAuth} className='authPage'/>
+      )
+    } else {
+      return(
+        <SignupForm onSubmit={this.signup} switchAuth={this.switchAuth} className='authPage'/>
+      )
+    } 
   }
 }
 
-export default AuthPage;
+export default connect(null, mapDispatchToProps)(AuthPage);

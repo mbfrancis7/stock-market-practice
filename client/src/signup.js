@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 
 function SignupForm(props) {
-  const { handleSubmit } = props;
+  const { handleSubmit, switchAuth } = props;
 
   return(
     <div className='form'>
@@ -26,6 +26,7 @@ function SignupForm(props) {
           <Field name='confirmPassword' component='input' type='password' />
         </div>
         <button type="submit">Sign Up</button>
+        <button onClick={switchAuth}>Sign In</button>
       </form>
     </div>
   )

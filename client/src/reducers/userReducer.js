@@ -1,23 +1,22 @@
-import {login} from '../actions.js';
+import {authorized} from '../actions.js';
 
 const initialState = {
-  user: {
-    auth: false,
-    name: null
-  },
+  auth: false,
+  id: null,
+  name: null,
   stocks: {}
 }
 
 const mainReducer = (state = initialState, action) => {
   switch(action.type) {
-    case login:
+    case authorized:
       return {
         ...state,
-        user: {
           auth: true,
-          name: action.payload.name
-        }
+          name: action.payload.name,
+          id: action.payload.id
       };
+
     default:
       return state;
   }

@@ -2,15 +2,11 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 
 function LoginForm(props) {
-  const { handleSubmit } = props;
+  const { handleSubmit, switchAuth } = props;
 
   return(
     <div className='form'>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="lastName">Last Name</label>
-          <Field name="lastName" component="input" type="text" />
-        </div>
         <div>
           <label htmlFor="email">Email</label>
           <Field name="email" component="input" type="email" />
@@ -19,7 +15,8 @@ function LoginForm(props) {
           <label htmlFor='password'>Password</label>
           <Field name='password' component='input' type='password' />
         </div>
-        <button type="submit">Sign Up</button>
+        <button type="submit">Sign In</button>
+        <button onClick={switchAuth} >Sign Up </button>
       </form>
     </div>
   )
