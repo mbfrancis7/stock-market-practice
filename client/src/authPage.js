@@ -8,7 +8,9 @@ class AuthPage extends Component {
   }
 
   submit = function(values) {
-    console.log(values)
+    let url = window.location.href + 'api/login';
+    console.log(url);
+    fetch(url)
   }
 
   render() {
