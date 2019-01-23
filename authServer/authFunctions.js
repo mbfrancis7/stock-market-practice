@@ -10,8 +10,8 @@ const seed = 10;
 const authFunctions = { 
   createUser: (req, res, next) => {
   let email = req.body.email;
-  let first = req.body.first_name;
-  let last = req.body.last_name;
+  let first = req.body.firstName;
+  let last = req.body.lastName;
   let text = 'INSERT INTO users(email, first_name, last_name, password) VALUES ($1,$2,$3,$4) RETURNING *';
   let values = [email, first, last];
   bcrypt.hash(req.body.password, seed, (err, hash)=>{
@@ -20,8 +20,6 @@ const authFunctions = {
       if(err) throw err;
       db.query(text, values, (err, data) => {
         done()
-        console.log('Error', err)
-        console.log('Data', data)
         if(err && err.code === '23505') {
           res.send("User already exists")
         } else {
@@ -32,15 +30,16 @@ const authFunctions = {
   })
 },
 
-  // put('/signin')
 login: (req, res, next) => {
   let text = `SELECT * FROM users WHERE email = '${req.body.email}'`;
+  console.log(req.body.email)
   pool.connect((err, client, done) => {
     if(err) throw err;
     client.query(text, (err, data) => {
       done()
       let pwd = req.body.password;
       let userInfo = data.rows[0] ? data.rows[0] : null;
+      // if user exists in user database check password against stored bcryted password
       if(userInfo) {
         bcrypt.compare(pwd, userInfo.password)
         .then(result => {
@@ -52,23 +51,17 @@ login: (req, res, next) => {
             let token = jwt.sign({user},'secretKey',{ expiresIn: 60 })
             console.log(token)
             res.cookie('Authorization', token, { maxAge: 60000, httpOnly: true })
-            res.send({
-              message: 'Successful Login'
-            })
+            res.json({auth: true})
           } else {
           res.json({creds: 'Invalid'});
           }
         })
         .catch(err => {
-          res.send(err)
+          res.send({error: err})
         })
       } else {
-        bcrypt.compare(pwd, fakePwd)
-        .then(result => {
-          res.json({creds: 'Invalid'});
-        })
-        .catch(err => {
-          res.send(err)
+        res.send({
+          message: 'failed'
         })
       }
     })

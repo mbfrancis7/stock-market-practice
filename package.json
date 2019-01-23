@@ -9,7 +9,7 @@
     "build": "webpack --mode production",
     "client": "webpack-dev-server --mode development --devtool inline-source-map --hot --open",
     "server": "nodemon server/server.js",
-    "app": "concurrently \"npm run build\" \"npm run server\"",
+    "app": "concurrently \"npm run build\" \"npm run server\" \"npm run authServer\"",
     "authServer": "nodemon authServer/authServer.js"
   },
   "repository": {},

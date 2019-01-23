@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 
-function LoginForm(props) {
+function SignupForm(props) {
   const { handleSubmit } = props;
 
   return(
     <div className='form'>
       <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="firstName">First Name</label>
+          <Field name="firstName" component="input" type="text" />
+        </div>
         <div>
           <label htmlFor="lastName">Last Name</label>
           <Field name="lastName" component="input" type="text" />
@@ -18,6 +22,8 @@ function LoginForm(props) {
         <div>
           <label htmlFor='password'>Password</label>
           <Field name='password' component='input' type='password' />
+          <label htmlFor='confirmPassword'>Confirm Password</label>
+          <Field name='confirmPassword' component='input' type='password' />
         </div>
         <button type="submit">Sign Up</button>
       </form>
@@ -25,6 +31,6 @@ function LoginForm(props) {
   )
 }
 
-LoginForm = reduxForm({form: 'login'})(LoginForm)
+SignupForm = reduxForm({form: 'signup'})(SignupForm)
 
-export default LoginForm;
+export default SignupForm;
