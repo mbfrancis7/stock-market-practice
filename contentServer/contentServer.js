@@ -1,8 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const path = require('path');
 
 const {verifyToken} = require('./contentAuth.js');
+const {getPortfolio} = require('./portfolioActions.js');
 
 const PORT = 3333;
 
@@ -18,8 +20,12 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.get('/', verifyToken, (req,res) => {
-  console.log('Token Verified')
+app.use(express.static(path.join(__dirname, '../client/dist')));
+
+app.get('/', (req,res,next) => {
+  res.sendFile(path.join(__dirname, '../client/public/index.html'))
 })
+
+app.get('/contentapi/portfolio', verifyToken, getPortfolio)
 
 app.listen(PORT, () => console.log('contentServer running on ', PORT))

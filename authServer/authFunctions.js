@@ -2,9 +2,9 @@ const jwt = require('jsonwebtoken');
 const { Pool, Client } = require('pg'); 
 const bcrypt = require('bcrypt');
 
-const { authString } = require('../databaseConnections/connection-strings.js');
+const { connectionString } = require('../databaseConnections/connection-strings.js');
 
-const pool = new Pool({connectionString: authString});
+const pool = new Pool({connectionString});
 const seed = 10;
 
 const authFunctions = { 
