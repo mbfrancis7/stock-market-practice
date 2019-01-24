@@ -8,7 +8,8 @@ module.exports = {
       const token = bearer[1];
       jwt.verify(token, 'secretKey', (err, data) => {
         if(err) {res.json({message: err})}
-        res.body.token = data;
+        req.body.token = data;
+        console.log(req.body.token)
         next()
       })
     } else {

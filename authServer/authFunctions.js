@@ -50,7 +50,7 @@ login: (req, res, next) => {
             // email: userInfo.email,
             id: userInfo.id
             }
-            let token = jwt.sign({user},'secretKey',{ expiresIn: 60 })
+            let token = jwt.sign({user},'secretKey',{ expiresIn: 300 })
             console.log(token)
             res.set('Authorization', 'Bearer ' + token)
             res.json({...user, auth: true, id: userInfo.id})
