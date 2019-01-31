@@ -34,7 +34,7 @@ class AuthPage extends Component {
     if(values.password !== values.confirmPassword) {
       return window.alert('Passwords do not match')
     } else {
-      fetch('http://127.0.0.1:3000/api/signup', {
+      fetch('http://127.0.0.1:3333/auth/signup', {
         method: 'POST',
         headers: {
           "Content-type": "application/json"
@@ -53,7 +53,7 @@ class AuthPage extends Component {
   }
 
   login = values => {
-    fetch('http://127.0.0.1:3000/api/login', {
+    fetch('http://127.0.0.1:3333/auth/login', {
       method: 'POST',
       headers: {
         "Content-type": "application/json"

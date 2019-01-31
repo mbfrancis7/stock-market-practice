@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import Header from './header.js';
 import AuthPage from './authPage.js';
-import Home from './home.js';
+import Portfolio from './portfolio.js';
 
 const mapStateToProps = state => ({
   user: state.user
@@ -29,8 +29,8 @@ class App extends Component {
         <BrowserRouter>
           <div>
             <Switch>
-              <Route exact path='/' render={() => this.props.user.auth ? <Redirect to='/home'/> : <AuthPage/>}/>
-              <Route exact path='/home' component={Home}/>
+              <Route exact path='/' render={() => this.props.user.auth ? <Redirect to='/portfolio'/> : <AuthPage/>}/>
+              <Route exact path='/portfolio' component={Portfolio}/>
             </Switch>
           </div>
         </BrowserRouter>

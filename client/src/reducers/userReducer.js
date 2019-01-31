@@ -1,4 +1,4 @@
-import {authorized} from '../actions.js';
+import {authorized, updatePortfolio } from '../actions.js';
 
 const initialState = {
   auth: false,
@@ -16,7 +16,12 @@ const mainReducer = (state = initialState, action) => {
           name: action.payload.name,
           id: action.payload.id
       };
-
+    case updatePortfolio:
+    console.log(action.payload)
+      return {
+        ...state,
+        stocks: action.payload
+      }
     default:
       return state;
   }

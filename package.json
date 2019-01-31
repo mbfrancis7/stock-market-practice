@@ -5,12 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js",
+    "start": "nodemon server/server.js",
     "build": "webpack --mode production",
     "client": "webpack-dev-server --mode development --devtool inline-source-map --open",
     "contentServer": "nodemon contentServer/contentServer.js",
-    "app": "concurrently \"npm run build\" \"npm run server\" \"npm run authServer\"",
-    "authServer": "nodemon authServer/authServer.js"
+    "app": "concurrently \"npm run build\" \"npm run server\""
   },
   "repository": {},
   "keywords": [],
@@ -42,8 +41,11 @@
     "bcrypt": "^3.0.2",
     "concurrently": "^4.1.0",
     "cookie-parser": "^1.4.3",
+    "cors": "^2.8.5",
     "jsonwebtoken": "^8.4.0",
     "material-ui": "^0.20.2",
+    "mongodb": "^3.1.13",
+    "mongoose": "^5.4.7",
     "node-fetch": "^2.3.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
