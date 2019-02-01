@@ -30,35 +30,30 @@ const controllers = {
         client.release()
       }
     },
-  login: (req, res, next) => {
+  login: async (req, res, next) => {
     let email = req.body.email // use regex to check
-    let text = `SELECT * FROM users WHERE email = '${email}'`;
-    pool.connect((err, client, done) => {
-      if(err) throw err;
-      client.query(text, (err, data) => {
-        done()
+    let query = `SELECT * FROM users WHERE email = '${email}'`;
+    const client = await pool.connect()
+      try {
+        let data = await client.query(query)
+        console.log(data)
         let userInfo = data.rows[0] ? data.rows[0] : null;
         if(userInfo) {
-          let pwd = req.body.password;
-          bcrypt.compare(pwd, userInfo.password)
-          .then(result => {
-            if(result) {
-              req.user = {_id: userInfo._id, firstName: userInfo.firstname}
-              next()
-            } else {
-              res.json({creds: 'Invalid'});
-            }
-          })
-          .catch(err => {
-            res.send({error: err})
-          })
+          let auth = await bcrypt.compare(req.body.password, userInfo.password)
+          if(auth) {
+            req.user = {_id: userInfo._id, firstName: userInfo.firstName}
+            next()
+          } else {
+            res.send({message: 'invalid credentials'})
+          }
         } else {
-          res.send({
-            message: 'failed'
-          })
+          res.send({message: 'user does not exist'})
         }
-      })
-    })
+      } catch (err) {
+        res.send({error: err})
+      } finally {
+        client.release()
+      }
   },
   setToken: function(req,res) {
     console.log('setToken')
