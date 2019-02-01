@@ -2,7 +2,7 @@ const { Pool, Client } = require('pg');
 const fetch = require('node-fetch');
 const mongoose = require('mongoose')
 
-const {connectionString, mongodbUrl } = require('../../databaseConnections/connection-strings.js');
+const {connectionString, mongodbUrl } = require('../../databaseConnections/configs.js');
 const portfolio = require('./portfolio.schema.js')
 
 const pool = new Pool({connectionString})
